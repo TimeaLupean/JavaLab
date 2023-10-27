@@ -87,6 +87,13 @@ public class Problem1 {
     }
 
     public int maximaleAbgerundeteNote(int[] noten) {
+        for (int i = 0; i < noten.length; i++) {
+            if (noten[i] < 0 || noten[i] > 100) {
+                System.out.println("Noten soll zwischen 0 und 100 sein.");
+                return 0;
+            }
+        }
+
         int maximale_abgerundete_note = 0;
         for (int i = 0; i < noten.length; i++) {
             if (round(noten[i]) != noten[i] && round(noten[i]) > maximale_abgerundete_note)
@@ -95,6 +102,15 @@ public class Problem1 {
         return maximale_abgerundete_note;
     }
 
+    public boolean sindGleich(int[] array1, int[] array2) {
+        if (array1.length != array2.length)
+            return false;
+        for (int i = 0; i < array1.length; i++) {
+            if (array1[i] != array2[i])
+                return false;
+        }
+        return true;
+    }
 
 }
 

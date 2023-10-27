@@ -1,7 +1,11 @@
 package main;
 
 public class Problem3 {
-    public int[] Summe(int[] zahl1, int[] zahl2) {
+    public int[] summe(int[] zahl1, int[] zahl2) {
+        if (zahl1.length != zahl2.length) {
+            System.out.println("Die Zahlen haben eine verschiedene Anzahl von Ziffern");
+            return null;
+        }
         int[] summe = new int[zahl1.length];
         int ziffer_summe;
         int geht_weiter = 0;
@@ -23,7 +27,11 @@ public class Problem3 {
         return summe;
     }
 
-    public int[] Differenz(int[] zahl1, int[] zahl2) {
+    public int[] differenz(int[] zahl1, int[] zahl2) {
+        if (zahl1.length != zahl2.length) {
+            System.out.println("Die Zahlen haben eine verschiedene Anzahl von Ziffern");
+            return null;
+        }
         int[] differenz = new int[zahl1.length];
         int borgen = 0;
         int ziffer_differenz;
@@ -51,7 +59,13 @@ public class Problem3 {
         return differenz;
     }
 
-    public int[] Multiplikation(int[] zahl, int ziffer) {
+    public int[] multiplikation(int[] zahl, int ziffer) {
+        if (ziffer > 9) {
+            System.out.println("Zahl soll nur eine Ziffer haben");
+            return null;
+        }
+
+
         int geht_weiter = 0;
         int[] multiplikation = new int[zahl.length];
         int ziffer_multiplikation = 0;
@@ -73,7 +87,10 @@ public class Problem3 {
         return multiplikation;
     }
 
-    public int[] Division(int[] zahl, int ziffer) {
+    public int[] division(int[] zahl, int ziffer) {
+        if(ziffer==0){
+            System.out.println("Divisor darf nicht null sein");
+        }
         int[] division = new int[zahl.length];
         int bleibt = 0;
         int dividend = 0;

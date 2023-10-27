@@ -32,16 +32,16 @@ public class Main {
         Problem2 problem2 = new Problem2();
         int[] zahlen = new int[]{4, 8, 3, 10, 17};
 
-        int max_zahl = problem2.Maxim(zahlen);
+        int max_zahl = problem2.maximaleZahl(zahlen);
         System.out.println("Maximale Zahl:" + max_zahl);
 
-        int min_zahl = problem2.Minim(zahlen);
+        int min_zahl = problem2.minimaleZahl(zahlen);
         System.out.println("Minimale Zahl:" + min_zahl);
 
-        int max_summe = problem2.maxSumme(zahlen);
+        int max_summe = problem2.maximaleSumme(zahlen);
         System.out.println("Maximale Summe:" + max_summe);
 
-        int min_summe = problem2.minSumme(zahlen);
+        int min_summe = problem2.minimaleSumme(zahlen);
         System.out.println("Minimale Summe:" + min_summe);
 
         System.out.println();
@@ -57,22 +57,22 @@ public class Main {
         int[] zahl = new int[]{2, 3, 6, 0, 0, 0, 0, 0, 8};
         int ziffer = 2;
 
-        int[] ziffer_summe = problem3.Summe(zahl1, zahl2);
+        int[] ziffer_summe = problem3.summe(zahl1, zahl2);
         System.out.print("Summe: ");
         System.out.println(Arrays.toString(ziffer_summe));
         System.out.println();
 
-        int[] ziffer_differenz = problem3.Differenz(zahl3, zahl4);
+        int[] ziffer_differenz = problem3.differenz(zahl3, zahl4);
         System.out.println("Differenz: ");
         System.out.println(Arrays.toString(ziffer_differenz));
         System.out.println();
 
-        int[] ziffer_multiplikation = problem3.Multiplikation(zahl, ziffer);
+        int[] ziffer_multiplikation = problem3.multiplikation(zahl, ziffer);
         System.out.println("Multiplikation: ");
         System.out.println(Arrays.toString(ziffer_multiplikation));
         System.out.println();
 
-        int[] ziffer_division = problem3.Division(zahl, ziffer);
+        int[] ziffer_division = problem3.division(zahl, ziffer);
         System.out.println("Division: ");
         System.out.println(Arrays.toString(ziffer_division));
         System.out.println();

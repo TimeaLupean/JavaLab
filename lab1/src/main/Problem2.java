@@ -2,7 +2,14 @@ package main;
 
 public class Problem2 {
 
-    public int Maxim(int[] zahlen) {
+    public int maximaleZahl(int[] zahlen) {
+        for (int i = 0; i < zahlen.length; i++) {
+            if (zahlen[i] < 0) {
+                System.out.println("Zahlen sollen positiv sein");
+                return 0;
+            }
+        }
+
         int n = zahlen.length;
         int maxim = 0;
         for (int i = 0; i < n; i++) {
@@ -13,7 +20,14 @@ public class Problem2 {
         return maxim;
     }
 
-    public int Minim(int[] zahlen) {
+    public int minimaleZahl(int[] zahlen) {
+        for (int i = 0; i < zahlen.length; i++) {
+            if (zahlen[i] < 0) {
+                System.out.println("Zahlen sollen positiv sein");
+                return 0;
+            }
+        }
+
         int n = zahlen.length;
         int minim = Integer.MAX_VALUE;
         for (int i = 0; i < n; i++) {
@@ -24,7 +38,14 @@ public class Problem2 {
         return minim;
     }
 
-    public int maxSumme(int[] zahlen) {
+    public int maximaleSumme(int[] zahlen) {
+        for (int i = 0; i < zahlen.length; i++) {
+            if (zahlen[i] < 0) {
+                System.out.println("Zahlen sollen positiv sein");
+                return 0;
+            }
+        }
+
         int n = zahlen.length;
         int minim = Integer.MAX_VALUE;
         int maxSumme = 0;
@@ -40,7 +61,14 @@ public class Problem2 {
     }
 
 
-    public int minSumme(int[] zahlen) {
+    public int minimaleSumme(int[] zahlen) {
+        for (int i = 0; i < zahlen.length; i++) {
+            if (zahlen[i] < 0) {
+                System.out.println("Zahlen sollen positiv sein");
+                return 0;
+            }
+        }
+
         int n = zahlen.length;
         int maxim = 0;
         int minSumme = 0;
