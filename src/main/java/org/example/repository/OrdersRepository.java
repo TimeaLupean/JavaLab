@@ -1,56 +1,90 @@
 package org.example.repository;
 
-import org.example.main.Orders;
+import org.example.main.Order;
+
 import java.util.ArrayList;
 import java.util.List;
+
 public class OrdersRepository {
 
-    private List<Orders> orders = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
-    public Orders findById(int targetOrderId) {
-        for (Orders order : orders) {
+    public Order findById(int targetOrderId) {
+        for (Order order : orders) {
             if (order.getOrder_id() == targetOrderId) {
                 return order;
             }
         }
+        System.out.println("Could not find order with Id: " + targetOrderId);
         return null;
     }
 
-    public List<Orders> findAll() {
+    public List<Order> findAll() {
+        if (orders.isEmpty()) {
+            System.out.println("There are no orders");
+            return null;
+        }
         return orders;
     }
 
 
-    public void save(Orders order) {
+    public boolean save(Order order) {
+        boolean saved = false;
+        for (Order item : orders) {
+            if (order.getOrder_id() == item.getOrder_id()) {
+                System.out.println("Order already exists");
+                return saved;
+            }
+
+        }
         orders.add(order);
+        for (Order item : orders) {
+            if (order.getOrder_id() == item.getOrder_id())
+                saved = true;
+        }
+
+        return saved;
     }
 
-    public void update(Orders updatedOrder) {
-        for (Orders order : orders) {
+    public boolean update(Order updatedOrder) {
+        boolean updated = false;
+        for (Order order : orders) {
             if (order.getOrder_id() == updatedOrder.getOrder_id()) {
                 order.setDate(updatedOrder.getDate());
-                order.setTotal_price(updatedOrder.getTotal_price());
                 order.setClient_id(updatedOrder.getClient_id());
                 order.setStatus(updatedOrder.getStatus());
+                order.calculateTotalPrice();
+                updated = true;
                 break;
             }
         }
+        if (updated == false)
+            System.out.println("Order was not updated");
+
+        return updated;
     }
 
-    public void delete(int targetOrderId) {
-        Orders orderToRemove = null;
-        for (Orders order : orders) {
+    public boolean delete(int targetOrderId) {
+        boolean deleted = false;
+        Order orderToRemove = null;
+        for (Order order : orders) {
             if (order.getOrder_id() == targetOrderId) {
                 orderToRemove = order;
                 break;
             }
         }
+        if (orderToRemove == null) {
+            System.out.println("Order does not exist");
+            deleted = false;
+        }
         if (orderToRemove != null) {
             orders.remove(orderToRemove);
+            deleted = true;
         }
+        return deleted;
+
+
     }
-
-
 
 
 }

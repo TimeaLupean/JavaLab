@@ -1,18 +1,22 @@
 package org.example.main;
 
-public class Orders {
+import java.util.List;
+
+public class Order {
     private int order_id;
     private String date;
     private int total_price;
     private int client_id;
     private String status;
+    private List<CartItem> cartItems;
 
-    public Orders(int order_id, String date, int total_price, int client_id, String status) {
+    public Order(int order_id, String date, int total_price, int client_id, String status,List<CartItem> cartItems) {
         this.order_id = order_id;
         this.date = date;
         this.total_price = total_price;
         this.client_id = client_id;
         this.status = status;
+        this.cartItems = cartItems;
     }
 
     public int getOrder_id() {
@@ -31,8 +35,12 @@ public class Orders {
         this.date = date;
     }
 
-    public int getTotal_price() {
-        return total_price;
+    public int calculateTotalPrice() {
+        int totalPrice = 0;
+        for (CartItem item : cartItems) {
+            totalPrice += item.getQuantity() * item.getBook().getPrice();
+        }
+        return totalPrice;
     }
 
     public void setTotal_price(int total_price) {
@@ -54,5 +62,6 @@ public class Orders {
     public void setStatus(String status) {
         this.status = status;
     }
+
 
 }
