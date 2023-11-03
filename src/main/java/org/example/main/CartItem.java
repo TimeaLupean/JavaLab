@@ -3,13 +3,13 @@ package org.example.main;
 public class CartItem {
     private Books book;
     private int quantity;
-
     private int user_id;
 
     public CartItem(Books book, int quantity, int user_id) {
         this.book = book;
         this.quantity = quantity;
         this.user_id = user_id;
+
     }
 
     public Books getBook() {
@@ -35,4 +35,9 @@ public class CartItem {
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
+
+
+
+
 }
+

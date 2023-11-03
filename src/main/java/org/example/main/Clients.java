@@ -1,6 +1,6 @@
 package org.example.main;
 
-public class Client {
+public class Clients {
     private int client_id;
     private String firstName;
     private String lastName;
@@ -8,7 +8,7 @@ public class Client {
     private String addresses;
     private String email;
 
-    public Client(int client_id, String firstName, String lastName, String birth_date, String addresses, String email) {
+    public Clients(int client_id, String firstName, String lastName, String birth_date, String addresses, String email) {
         this.client_id = client_id;
         this.firstName = firstName;
         this.lastName = lastName;
