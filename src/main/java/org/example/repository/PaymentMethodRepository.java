@@ -82,4 +82,14 @@ public class PaymentMethodRepository {
         }
         return deleted;
     }
+
+    public List<PaymentMethod> findByType(String type) {
+        List<PaymentMethod> result = new ArrayList<>();
+        for (PaymentMethod paymentMethod : paymentMethods) {
+            if (paymentMethod.getType().equals(type)) {
+                result.add(paymentMethod);
+            }
+        }
+        return result;
+    }
 }

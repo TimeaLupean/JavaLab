@@ -3,12 +3,10 @@ package org.example.main;
 public class CartItem {
     private Books book;
     private int quantity;
-    private int user_id;
 
-    public CartItem(Books book, int quantity, int user_id) {
+    public CartItem(Books book, int quantity) {
         this.book = book;
         this.quantity = quantity;
-        this.user_id = user_id;
 
     }
 
@@ -28,13 +26,9 @@ public class CartItem {
         this.quantity = quantity;
     }
 
-    public int getUser_id() {
-        return user_id;
-    }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
+
+
 
 
 

@@ -25,6 +25,15 @@ public class CategoryRepository {
         return categories;
     }
 
+    public Category findByType(String type){
+        for (Category category : categories) {
+            if (category.getType() == type) {
+                return category;
+            }
+        }
+        System.out.println("Could not find category type ");
+        return null;
+    }
 
     public boolean save(Category category) {
         boolean saved = false;

@@ -19,8 +19,8 @@ public class OrdersRepositoryTest {
         Books book1 = new Books(123, "Chosen One", 2020, author1, 50, category);
         Books book2 = new Books(234, "Divergent", 2011, author1, 45, category);
         List<CartItem> cartItems = new ArrayList<>();
-        CartItem cartItem1 = new CartItem(book1, 2, 2);
-        CartItem cartItem2 = new CartItem(book1, 3, 3);
+        CartItem cartItem1 = new CartItem(book1, 2);
+        CartItem cartItem2 = new CartItem(book1, 3);
         cartItems.add(cartItem1);
         cartItems.add(cartItem2);
 
@@ -41,8 +41,8 @@ public class OrdersRepositoryTest {
         Books book1 = new Books(123, "Chosen One", 2020, author1, 50, category);
         Books book2 = new Books(234, "Divergent", 2011, author1, 45, category);
         List<CartItem> cartItems = new ArrayList<>();
-        CartItem cartItem1 = new CartItem(book1, 2, 2);
-        CartItem cartItem2 = new CartItem(book1, 3, 3);
+        CartItem cartItem1 = new CartItem(book1, 2);
+        CartItem cartItem2 = new CartItem(book1, 3);
         cartItems.add(cartItem1);
         cartItems.add(cartItem2);
 
@@ -63,8 +63,8 @@ public class OrdersRepositoryTest {
         Books book1 = new Books(123, "Chosen One", 2020, author1, 50, category);
         Books book2 = new Books(234, "Divergent", 2011, author1, 45, category);
         List<CartItem> cartItems = new ArrayList<>();
-        CartItem cartItem1 = new CartItem(book1, 2, 2);
-        CartItem cartItem2 = new CartItem(book1, 3, 3);
+        CartItem cartItem1 = new CartItem(book1, 2);
+        CartItem cartItem2 = new CartItem(book1, 3);
         cartItems.add(cartItem1);
         cartItems.add(cartItem2);
 
@@ -106,8 +106,8 @@ public class OrdersRepositoryTest {
         Books book1 = new Books(123, "Chosen One", 2020, author1, 50, category);
         Books book2 = new Books(234, "Divergent", 2011, author1, 45, category);
         List<CartItem> cartItems = new ArrayList<>();
-        CartItem cartItem1 = new CartItem(book1, 2, 2);
-        CartItem cartItem2 = new CartItem(book1, 3, 3);
+        CartItem cartItem1 = new CartItem(book1, 2);
+        CartItem cartItem2 = new CartItem(book1, 3);
         cartItems.add(cartItem1);
         cartItems.add(cartItem2);
 
@@ -136,8 +136,8 @@ public class OrdersRepositoryTest {
         Books book1 = new Books(123, "Chosen One", 2020, author1, 50, category);
         Books book2 = new Books(234, "Divergent", 2011, author1, 45, category);
         List<CartItem> cartItems = new ArrayList<>();
-        CartItem cartItem1 = new CartItem(book1, 2, 2);
-        CartItem cartItem2 = new CartItem(book1, 3, 3);
+        CartItem cartItem1 = new CartItem(book1, 2);
+        CartItem cartItem2 = new CartItem(book1, 3);
         cartItems.add(cartItem1);
         cartItems.add(cartItem2);
 
@@ -160,8 +160,8 @@ public class OrdersRepositoryTest {
         Books book1 = new Books(123, "Chosen One", 2020, author1, 50, category);
         Books book2 = new Books(234, "Divergent", 2011, author1, 45, category);
         List<CartItem> cartItems = new ArrayList<>();
-        CartItem cartItem1 = new CartItem(book1, 2, 2);
-        CartItem cartItem2 = new CartItem(book1, 3, 3);
+        CartItem cartItem1 = new CartItem(book1, 2);
+        CartItem cartItem2 = new CartItem(book1, 3);
         cartItems.add(cartItem1);
         cartItems.add(cartItem2);
 
@@ -187,8 +187,8 @@ public class OrdersRepositoryTest {
         Books book1 = new Books(123, "Chosen One", 2020, author1, 50, category);
         Books book2 = new Books(234, "Divergent", 2011, author1, 45, category);
         List<CartItem> cartItems = new ArrayList<>();
-        CartItem cartItem1 = new CartItem(book1, 2, 2);
-        CartItem cartItem2 = new CartItem(book1, 3, 3);
+        CartItem cartItem1 = new CartItem(book1, 2);
+        CartItem cartItem2 = new CartItem(book1, 3);
         cartItems.add(cartItem1);
         cartItems.add(cartItem2);
 
@@ -214,8 +214,8 @@ public class OrdersRepositoryTest {
         Books book1 = new Books(123, "Chosen One", 2020, author1, 50, category);
         Books book2 = new Books(234, "Divergent", 2011, author1, 45, category);
         List<CartItem> cartItems = new ArrayList<>();
-        CartItem cartItem1 = new CartItem(book1, 2, 2);
-        CartItem cartItem2 = new CartItem(book1, 3, 3);
+        CartItem cartItem1 = new CartItem(book1, 2);
+        CartItem cartItem2 = new CartItem(book1, 3);
         cartItems.add(cartItem1);
         cartItems.add(cartItem2);
 
@@ -237,8 +237,8 @@ public class OrdersRepositoryTest {
         Books book1 = new Books(123, "Chosen One", 2020, author1, 50, category);
         Books book2 = new Books(234, "Divergent", 2011, author1, 45, category);
         List<CartItem> cartItems = new ArrayList<>();
-        CartItem cartItem1 = new CartItem(book1, 2, 2);
-        CartItem cartItem2 = new CartItem(book1, 3, 3);
+        CartItem cartItem1 = new CartItem(book1, 2);
+        CartItem cartItem2 = new CartItem(book1, 3);
         cartItems.add(cartItem1);
         cartItems.add(cartItem2);
 

@@ -1,9 +1,11 @@
 package org.example.main;
+import org.example.main.Order;
 
 public class Shipping {
     private int shipping_id;
     private String address;
     private String shipping_method;
+
 
     public Shipping(int shipping_id, String address, String shipping_method) {
         this.shipping_id = shipping_id;

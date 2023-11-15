@@ -28,6 +28,16 @@ public class AuthorRepository {
         return authors;
     }
 
+    public Author findbyName(String firstname, String lastname){
+        for (Author author : authors) {
+            if (author.getFirstName() == firstname && author.getLastName() == lastname) {
+                return author;
+            }
+        }
+        System.out.println("Could not find this author");
+        return null;
+    }
+
     public boolean save(Author author){
         boolean saved = false;
         for (Author author1 : authors) {

@@ -63,5 +63,15 @@ public class Order {
         this.status = status;
     }
 
+    public void addCartItem(CartItem cartItem){
+        cartItems.add(cartItem);
+    }
+
+    public void removeCartItem(CartItem cartItem){cartItems.remove(cartItem);}
+
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
 
 }

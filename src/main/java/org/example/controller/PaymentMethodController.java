@@ -31,6 +31,10 @@ public class PaymentMethodController {
         paymentMethodRepository.update(updatedPaymentMethod);
     }
 
+    public List<PaymentMethod> findPaymentMethodsByType(String type) {
+        return paymentMethodRepository.findByType(type);
+    }
+
     public void deletePaymentMethod(int paymentMethodId) {
         paymentMethodRepository.delete(paymentMethodId);
     }

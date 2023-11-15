@@ -1,29 +1,38 @@
 package org.example.controller;
 import org.example.main.CartItem;
-import org.example.main.Clients;
+
 import org.example.repository.CartItemRepository;
 
+import org.example.main.Books;
+
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartController {
-    private CartItemRepository cartItemRepository;
-    private Clients currentClient;
 
-    public CartController(CartItemRepository cartItemRepository) {
+    private CartItemRepository cartItemRepository;
+    List<CartItem> cartItems = new ArrayList<>();
+
+    public CartController(CartItemRepository cartRepository) {
         this.cartItemRepository = cartItemRepository;
     }
 
-    public void viewCart(){
-        List<CartItem> userCart = cartItemRepository.findByUser(currentClient.getClient_id());
-        if(userCart.isEmpty()){
-            System.out.println("Your shopping cart is empty.");
-        } else {
-            System.out.println("Your shopping cart: ");
-            for(CartItem cartItem : userCart){
-                System.out.println("Book: " + cartItem.getBook().getTitle());
-                System.out.println("Quantity: " + cartItem.getQuantity());
-                System.out.println("------------");
-            }
-        }
+    public void createcartItem(Books book,int quantity) {
+        CartItem cartItem = new CartItem(book,quantity);
+        cartItemRepository.save(cartItem);
+    }
+
+    public List<CartItem> viewAllCartItems() {
+        return cartItemRepository.findAll();
+    }
+
+    public void updatecartItem(Books book, int quantity) {
+        CartItem updatedcartItem = new CartItem(book,quantity);
+        cartItemRepository.update(updatedcartItem);
+    }
+
+    public void deletecartItem(CartItem cartItem) {
+        cartItemRepository.delete(cartItem);
     }
 }
