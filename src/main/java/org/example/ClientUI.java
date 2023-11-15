@@ -1,15 +1,10 @@
 package org.example;
-
-import org.example.controller.ClientController;
-import org.example.controller.OrdersController;
-import org.example.main.Books;
-import org.example.main.CartItem;
-import org.example.main.Clients;
-import org.example.controller.BookController;
-import org.example.controller.CartController;
-import org.example.controller.ReviewController;
-import org.example.controller.PaymentMethodController;
-import org.example.main.Order;
+import org.example.controller.*;
+import org.example.main.*;
+import org.example.main.patterns.Strategy.BankTransferPaymentStrategy;
+import org.example.main.patterns.Strategy.CardPaymentStrategy;
+import org.example.main.patterns.Strategy.CashPaymentStrategy;
+import org.example.main.patterns.Strategy.PaymentStrategy;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,20 +24,27 @@ public class ClientUI {
     private final CartController cartItemController;
     private final ReviewController reviewController;
     private final PaymentMethodController paymentMethodController;
+    private final CategoryController categoryController;
+    private final AuthorController authorController;
+
+    private final ShippingController shippingController;
 
 
-    public ClientUI(BookController bookController, OrdersController ordersController, ClientController clientController, CartController cartItemController, ReviewController reviewController, PaymentMethodController paymentMethodController) {
+    public ClientUI(BookController bookController, OrdersController ordersController, ClientController clientController, CartController cartItemController, ReviewController reviewController, PaymentMethodController paymentMethodController, CategoryController categoryController, AuthorController authorController, ShippingController shippingController) {
         this.bookController = bookController;
         this.ordersController = ordersController;
         this.clientController = clientController;
         this.cartItemController = cartItemController;
         this.reviewController = reviewController;
         this.paymentMethodController = paymentMethodController;
+        this.categoryController = categoryController;
+        this.authorController = authorController;
+        this.shippingController = shippingController;
     }
 
     //Clients client1 = new Clients(1, "Ana", "Aana","11-12-2002","Ploiesti","a");
-    public void start() {
-        while (true) {
+    public void start(){
+        while(true){
             System.out.println("Welcome!");
             System.out.println("1.Register");
             System.out.println("2.Login");
@@ -51,7 +53,7 @@ public class ClientUI {
             System.out.println("5.Exit");
             int choice = scanner.nextInt();
             scanner.nextLine();
-            switch (choice) {
+            switch (choice){
                 case 1:
                     register();
                     break;
@@ -63,7 +65,7 @@ public class ClientUI {
                     break;
                 case 4:
                     bookshop();
-                    break; //sau return; ?
+                    break;
                 case 5:
                     System.out.println("Goodbye!");
                     return;
@@ -74,37 +76,49 @@ public class ClientUI {
         }
     }
 
-    public void bookshop() {
-        while (true) {
+    public void bookshop(){
+        while (true){
             System.out.println("Welcome to Bookshop!");
             System.out.println("1.View Books");
-            System.out.println("2.Add Book to Cart");
-            System.out.println("3.View Cart");
-            System.out.println("4.Leave review");
-            System.out.println("5.Finalize order");
-            System.out.println("6.Exit");
+            System.out.println("2.View authors");
+            System.out.println("3.View categories");
+            System.out.println("4.Add Book to Cart");
+            System.out.println("5.Delete book form cart");
+            System.out.println("6.View Cart");
+            System.out.println("7.Leave review");
+            System.out.println("8.Finalize order");
+            System.out.println("9.Exit");
             System.out.println("Select an option: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            switch (choice) {
+            switch (choice){
                 case 1:
                     viewBooks();
                     break;
                 case 2:
-                    addBookToCart();
+                    viewAuthors();
                     break;
                 case 3:
-                    viewCart();
+                    viewCategories();
                     break;
                 case 4:
-                    leaveReview();
+                    addBookToCart();
                     break;
                 case 5:
-                    finalizeOrder();
+                    deleteBookFromCart();
                     break;
                 case 6:
+                    viewCart();
+                    break;
+                case 7:
+                    leaveReview();
+                    break;
+                case 8:
+                    finalizeOrder();
+                    break;
+                case 9:
                     System.out.println("Goodbye!");
                     return;
                 default:
@@ -113,8 +127,7 @@ public class ClientUI {
             }
         }
     }
-
-    public void leaveReview() {
+    public void leaveReview(){
         reviewID++;
         System.out.println("Give book id: ");
         int bookid = scanner.nextInt();
@@ -129,13 +142,40 @@ public class ClientUI {
         reviewController.createReview(reviewID, stars, feedback, bookid, date);
     }
 
-    public void viewBooks() {
+    public void viewCategories(){
+        System.out.println("List of available categories:");
+        List<Category> availablecategories = categoryController.viewAllCategory();
+        int index = 1;
+        if(availablecategories.isEmpty()){
+            System.out.println("No categories available.");
+        } else {
+            for(Category category :availablecategories){
+                System.out.println(index + ": " + category.getType());
+                index++;
+            }
+        }
+    }
+
+    public void viewAuthors(){
+        System.out.println("List of available Authors:");
+        List<Author> availableauthors = authorController.viewAllAuthors();
+        int index = 1;
+        if(availableauthors.isEmpty()){
+            System.out.println("No authors available");
+        } else{
+            for(Author author:availableauthors){
+                System.out.println(index + ": " + author.getFirstName() + " " + author.getLastName());
+                index++;
+            }
+        }
+    }
+    public void viewBooks(){
         System.out.println("List of available books:");
         List<Books> availableBooks = bookController.viewAllBooks();
-        if (availableBooks.isEmpty()) {
+        if(availableBooks.isEmpty()){
             System.out.println("No books available.");
         } else {
-            for (Books book : availableBooks) {
+            for(Books book : availableBooks){
                 System.out.println("Book ID: " + book.getBook_id());
                 System.out.println("Title: " + book.getTitle());
                 System.out.println("Publishing year: " + book.getPublishing_year());
@@ -167,22 +207,22 @@ public class ClientUI {
         }
     }
 
-    public void deleteBookFromCart() {
-        if (currentClient != null) {
+    public void deleteBookFromCart(){
+        if( currentClient!= null){
             System.out.println("Enter the book id you want to delete: ");
             int id = scanner.nextInt();
             scanner.nextLine();
             Books booktodelete = bookController.findBookById(id);
             Order order = ordersController.findOrderById(orderid);
-            if (booktodelete != null) {
-                List<CartItem> cartItems = order.getCartItems();
-                for (CartItem cartItem : cartItems) {
-                    if (booktodelete == cartItem.getBook()) {
-                        if (cartItem.getQuantity() == 1) {
-                            order.removeCartItem(cartItem);
-                        } else {
+            if(booktodelete != null){
+                List<CartItem> cartItems= order.getCartItems();
+                for(CartItem cartItem :cartItems){
+                    if(booktodelete  == cartItem.getBook()){
+                        if(cartItem.getQuantity() == 1){
+                            ordersController.removeItemFromOrder(orderid,cartItem);
+                        }else {
                             int quantity = cartItem.getQuantity();
-                            cartItem.setQuantity(quantity - 1);
+                            cartItem.setQuantity(quantity-1);
                         }
                     }
                 }
@@ -190,32 +230,56 @@ public class ClientUI {
         }
     }
 
-
-    public void finalizeOrder() {
-        if (currentClient != null) {
+    public void finalizeOrder(){
+        if(currentClient != null){
             Order order = ordersController.findOrderById(orderid);
             order.setStatus("processing");
+
             System.out.println("How would you like to pay?(cahs/card/bank transfer): ");
             String pay_method = scanner.nextLine();
             scanner.nextLine();
+            PaymentStrategy type;
             if (pay_method.equalsIgnoreCase("cash")) {
-                paymentMethodController.createPaymentMethod(1, "cash", "at delevery");
-            } else if (pay_method.equalsIgnoreCase("card")) {
-                paymentMethodController.createPaymentMethod(2, "card", "paid");
+                type = new CashPaymentStrategy();
             } else {
-                paymentMethodController.createPaymentMethod(3, "bank transfer", "waiting");
+                if (pay_method.equalsIgnoreCase("card")) {
+                    type = new CardPaymentStrategy();
+                } else {
+                    type = new BankTransferPaymentStrategy();
+                }
             }
+
+            if(pay_method.equalsIgnoreCase("cash")){
+                paymentMethodController.createPaymentMethod(1,"at delevery",type);
+            } else if (pay_method.equalsIgnoreCase("card")) {
+                paymentMethodController.createPaymentMethod(2,"paid",type);
+            } else{
+                paymentMethodController.createPaymentMethod(3,"waiting",type);
+            }
+
+            System.out.println("What shipping method would you like?(postal office, courier): ");
+            String shipping_method = scanner.nextLine();
+            scanner.nextLine();
+            System.out.println("At what address?: ");
+            String shipping_address = scanner.nextLine();
+            scanner.nextLine();
+            if(shipping_method.equalsIgnoreCase("postal office")){
+                shippingController.createShipping(orderid, shipping_address,"postal office");
+            } else {
+                shippingController.createShipping(orderid, shipping_address, "courier");
+            }
+
             System.out.println("Order finalized. Thank you for your purchase!");
         } else {
             System.out.println("Please log in before finalizing the order.");
         }
     }
 
-    public void viewCart() {
-        if (currentClient != null) {
+    public void viewCart(){
+        if(currentClient != null){
             Order order = ordersController.findOrderById(orderid);
             List<CartItem> cartItems = order.getCartItems();
-            if (cartItems.isEmpty()) {
+            if(cartItems.isEmpty()){
                 System.out.println("Your shopping cart is empty.");
             } else {
                 System.out.println("Your shopping cart: ");
@@ -224,7 +288,7 @@ public class ClientUI {
                     System.out.println("Quantity: " + cartItem.getQuantity());
                 }
             }
-        } else {
+        }else {
             System.out.println("Please log in to view your shopping cart.");
         }
     }
@@ -253,7 +317,7 @@ public class ClientUI {
         System.out.println("Enter your address: ");
         String address = scanner.nextLine();
 
-        clientController.createClient(user_id, fname, lname, birthdate, address, email);
+        clientController.createClient(user_id,fname,lname,birthdate,address,email);
 
         System.out.println("Registration successful. You can now log in.");
         //System.out.println("Number of clients in the repository: " + clientsRepository.findAll().size());
@@ -280,10 +344,10 @@ public class ClientUI {
         Clients client = clientController.findClientById(clientId);
 
         if (client != null && client.getEmail().equals(email)) {
-            orderid += 1;
+            orderid +=1;
             String date = getCurrentDateAsString();
             List<CartItem> empty = new ArrayList<>();
-            ordersController.createOrder(orderid, date, 0, clientId, "initialized", empty);
+            ordersController.createOrder(orderid, date,0,clientId,"initialized",empty);
 
             currentClient = client;
             System.out.println("Login successful. Welcome, Client ID " + currentClient.getClient_id() + "!");
@@ -292,7 +356,7 @@ public class ClientUI {
         }
     }
 
-    public void updateData() {
+    public void updateData(){
         System.out.print("Enter your ID: ");
         int user_id = scanner.nextInt();
         scanner.nextLine();

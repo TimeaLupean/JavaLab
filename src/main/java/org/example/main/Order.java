@@ -1,22 +1,29 @@
 package org.example.main;
 
+import org.example.main.patterns.Observer.CartItemObserver;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class Order implements CartItemObserver {
     private int order_id;
     private String date;
     private int total_price;
     private int client_id;
     private String status;
     private List<CartItem> cartItems;
+    private List<CartItemObserver> cartItemObservers = new ArrayList<>();
 
-    public Order(int order_id, String date, int total_price, int client_id, String status,List<CartItem> cartItems) {
+    public Order(int order_id, String date, int total_price, int client_id, String status, List<CartItem> cartItems) {
         this.order_id = order_id;
         this.date = date;
         this.total_price = total_price;
         this.client_id = client_id;
         this.status = status;
         this.cartItems = cartItems;
+
+        for (CartItem cartItem : cartItems)
+            cartItem.addObserver(this);
     }
 
     public int getOrder_id() {
@@ -63,14 +70,21 @@ public class Order {
         this.status = status;
     }
 
-    public void addCartItem(CartItem cartItem){
+    public void addCartItem(CartItem cartItem) {
         cartItems.add(cartItem);
     }
 
-    public void removeCartItem(CartItem cartItem){cartItems.remove(cartItem);}
+    public void removeCartItem(CartItem cartItem) {
+        cartItems.remove(cartItem);
+    }
 
     public List<CartItem> getCartItems() {
         return cartItems;
+    }
+
+    @Override
+    public void update(CartItem cartItem) {
+        calculateTotalPrice();
     }
 
 

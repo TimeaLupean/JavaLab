@@ -49,7 +49,7 @@ public class PaymentMethodRepository {
         boolean updated = false;
         for (PaymentMethod paymentMethod : paymentMethods) {
             if (paymentMethod.getPayment_id() == updatedPaymentMethod.getPayment_id()) {
-                paymentMethod.setType(updatedPaymentMethod.getType());
+                //paymentMethod.setType(updatedPaymentMethod.getType());
                 paymentMethod.setStatus(updatedPaymentMethod.getStatus());
                 updated = true;
                 break;
@@ -83,13 +83,5 @@ public class PaymentMethodRepository {
         return deleted;
     }
 
-    public List<PaymentMethod> findByType(String type) {
-        List<PaymentMethod> result = new ArrayList<>();
-        for (PaymentMethod paymentMethod : paymentMethods) {
-            if (paymentMethod.getType().equals(type)) {
-                result.add(paymentMethod);
-            }
-        }
-        return result;
-    }
+
 }

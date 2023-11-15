@@ -3,7 +3,11 @@ package org.example;
 import org.example.controller.*;
 import org.example.main.CartItem;
 import org.example.main.*;
+import org.example.main.patterns.Strategy.CardPaymentStrategy;
+import org.example.main.patterns.Strategy.PaymentStrategy;
 import org.example.repository.*;
+import org.example.main.patterns.Strategy.CashPaymentStrategy;
+import org.example.main.patterns.Strategy.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -89,6 +93,7 @@ public class ManagerUI {
         System.out.println("3.View all authors");
         System.out.println("4.Update author");
         System.out.println("5.Delete author");
+        System.out.println("6. Exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
@@ -172,6 +177,7 @@ public class ManagerUI {
         System.out.println("3.Find all books");
         System.out.println("4.Update book");
         System.out.println("5.Delete book");
+        System.out.println("6. Exit");
 
         int choice = scanner.nextInt();
         scanner.nextLine();
@@ -276,6 +282,7 @@ public class ManagerUI {
         System.out.println("3.View all categories");
         System.out.println("4.Update category");
         System.out.println("5.Delete category");
+        System.out.println("6. Exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
@@ -338,6 +345,7 @@ public class ManagerUI {
         System.out.println("2.View all orders");
         System.out.println("3.Update order status");
         System.out.println("4.Delete order");
+        System.out.println("5. Exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
@@ -401,6 +409,7 @@ public class ManagerUI {
         System.out.println("1. View all clients");
         System.out.println("2. Find client by ID");
         System.out.println("3. Delete a client");
+        System.out.println("4. Exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
@@ -459,6 +468,7 @@ public class ManagerUI {
         System.out.println("1. Find review by ID");
         System.out.println("2. View all reviews");
         System.out.println("3. Delete a review");
+        System.out.println("4. Exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
@@ -514,9 +524,9 @@ public class ManagerUI {
     public void paymentMethodMenu() {
         System.out.println("1. View all payment methods");
         System.out.println("2. Find payment method by ID");
-        System.out.println("3. Find payment methods by type");
-        System.out.println("4. Update a payment method");
-        System.out.println("5. Delete a payment method");
+        System.out.println("3. Update a payment method");
+        System.out.println("4. Delete a payment method");
+        System.out.println("5. Exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
@@ -529,7 +539,6 @@ public class ManagerUI {
                 else {
                     for (PaymentMethod paymentMethod : paymentMethods) {
                         System.out.println("Payment Method ID: " + paymentMethod.getPayment_id());
-                        System.out.println("Type: " + paymentMethod.getType());
                         System.out.println("Status: " + paymentMethod.getStatus());
                     }
                 }
@@ -542,46 +551,42 @@ public class ManagerUI {
                 if (foundPaymentMethod != null) {
                     System.out.println("Payment method found:");
                     System.out.println("Payment Method ID: " + foundPaymentMethod.getPayment_id());
-                    System.out.println("Type: " + foundPaymentMethod.getType());
                     System.out.println("Status: " + foundPaymentMethod.getStatus());
                 } else {
                     System.out.println("Payment method not found with ID " + paymentMethodIdToFind);
                 }
                 break;
+
             case 3:
-                System.out.println("Give payment method type to find: ");
-                String paymentMethodTypeToFind = scanner.nextLine();
-                List<PaymentMethod> paymentMethodsByType = paymentMethodController.findPaymentMethodsByType(paymentMethodTypeToFind);
-                if (paymentMethodsByType.isEmpty())
-                    System.out.println("No payment methods available with type " + paymentMethodTypeToFind);
-                else {
-                    System.out.println("Payment methods with type " + paymentMethodTypeToFind + ": ");
-                    for (PaymentMethod paymentMethod : paymentMethodsByType) {
-                        System.out.println("Payment Method ID: " + paymentMethod.getPayment_id());
-                        System.out.println("Type: " + paymentMethod.getType());
-                        System.out.println("Status: " + paymentMethod.getStatus());
-                    }
-                }
-                break;
-            case 4:
                 System.out.println("Give payment method ID to update: ");
                 int paymentMethodIdToUpdate = scanner.nextInt();
                 scanner.nextLine();
                 System.out.println("Give new type: ");
                 String newType = scanner.nextLine();
+                PaymentStrategy type;
+                if (newType.equalsIgnoreCase("cash")) {
+                    type = new CashPaymentStrategy();
+                } else {
+                    if (newType.equalsIgnoreCase("card")) {
+                        type = new CardPaymentStrategy();
+                    } else {
+                        type = new BankTransferPaymentStrategy();
+                    }
+                }
+
                 System.out.println("Give new status: ");
                 String newStatus = scanner.nextLine();
-                paymentMethodController.updatePaymentMethod(paymentMethodIdToUpdate, newType, newStatus);
+                paymentMethodController.updatePaymentMethod(paymentMethodIdToUpdate, newStatus, type);
                 System.out.println("Payment method with ID " + paymentMethodIdToUpdate + " has been updated.");
                 break;
-            case 5:
+            case 4:
                 System.out.println("Give payment method ID to delete: ");
                 int paymentMethodIdToDelete = scanner.nextInt();
                 scanner.nextLine();
                 paymentMethodController.deletePaymentMethod(paymentMethodIdToDelete);
                 System.out.println("Payment method with ID " + paymentMethodIdToDelete + " has been deleted.");
                 break;
-            case 6:
+            case 5:
                 System.out.println("Goodbye!");
                 return;
             default:
@@ -597,6 +602,7 @@ public class ManagerUI {
         System.out.println("3. View all publishers");
         System.out.println("4. Update a publisher");
         System.out.println("5. Delete a publisher");
+        System.out.println("6. Exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
@@ -680,6 +686,7 @@ public class ManagerUI {
         System.out.println("2. Find shipping by ID");
         System.out.println("3. Update a shipping");
         System.out.println("4. Delete a shipping");
+        System.out.println("5. Exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
 

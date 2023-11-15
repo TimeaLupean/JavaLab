@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.main.PaymentMethod;
+import org.example.main.patterns.Strategy.PaymentStrategy;
 import org.example.repository.PaymentMethodRepository;
 
 import java.util.List;
@@ -13,8 +14,8 @@ public class PaymentMethodController {
         this.paymentMethodRepository = paymentMethodRepository;
     }
 
-    public void createPaymentMethod(int paymentId, String type, String status) {
-        PaymentMethod paymentMethod = new PaymentMethod(paymentId, type, status);
+    public void createPaymentMethod(int paymentId,  String status, PaymentStrategy paymentStrategy) {
+        PaymentMethod paymentMethod = new PaymentMethod(paymentId, status,paymentStrategy);
         paymentMethodRepository.save(paymentMethod);
     }
 
@@ -26,14 +27,12 @@ public class PaymentMethodController {
         return paymentMethodRepository.findAll();
     }
 
-    public void updatePaymentMethod(int paymentMethodId, String type, String status) {
-        PaymentMethod updatedPaymentMethod = new PaymentMethod(paymentMethodId, type, status);
+    public void updatePaymentMethod(int paymentMethodId,  String status,PaymentStrategy paymentStrategy) {
+        PaymentMethod updatedPaymentMethod = new PaymentMethod(paymentMethodId, status,paymentStrategy);
         paymentMethodRepository.update(updatedPaymentMethod);
     }
 
-    public List<PaymentMethod> findPaymentMethodsByType(String type) {
-        return paymentMethodRepository.findByType(type);
-    }
+
 
     public void deletePaymentMethod(int paymentMethodId) {
         paymentMethodRepository.delete(paymentMethodId);

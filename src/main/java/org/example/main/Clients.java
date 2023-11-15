@@ -1,24 +1,16 @@
 package org.example.main;
 
 public class Clients extends  Person{
-    private int client_id;
-
     private String email;
 
     public Clients(int client_id, String firstName, String lastName, String birth_date, String addresses, String email) {
-        super(firstName ,lastName,birth_date,addresses);
-        this.client_id = client_id;
+        super(client_id,firstName ,lastName,birth_date,addresses);
         this.email = email;
     }
 
     public int getClient_id() {
-        return client_id;
+        return super.getId();
     }
-
-    public void setClient_id(int client_id) {
-        this.client_id = client_id;
-    }
-
     public String getEmail() {
         return email;
     }
